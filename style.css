@@ -1194,6 +1194,8 @@ form textarea {
   outline: none;
   box-sizing: border-box;
   font-family: inter;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
 }
 
 /* TEXTAREA */
@@ -1222,6 +1224,117 @@ form textarea {
 /* REQUIRED ASTERISK */
 .asterisk {
   color: red;
+}
+
+/* INPUT GROUP */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+/* ERROR STYLE */
+.error {
+  border: 2px solid red !important;
+}
+
+/* ERROR MESSAGE */
+.error-text {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  display: none;
+  font-family: inter;
+  font-weight: bold;
+}
+
+/* SHOW ERROR */
+.error-text.show {
+  display: block;
+}
+
+/* SUCCESS POPUP */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: 0.3s ease;
+  z-index: 9999;
+}
+
+/* SHOW POPUP */
+.popup.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* POPUP BOX */
+.popup-content {
+  background: rgba(32, 43, 116, 0.95);
+  padding: 50px 40px;
+  border-radius: 30px;
+  text-align: center;
+  width: 80%;
+  max-width: 700px;
+  color: white;
+  position: relative;
+}
+
+/* CHECK ICON */
+.checkmark {
+  width: 100px;
+  height: 100px;
+  background: #66cc33;
+  border-radius: 50%;
+  margin: 0 auto 25px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 60px;
+  font-weight: bold;
+}
+
+/* POPUP TEXT */
+.popup-content h2 {
+  font-size: 45px;
+  line-height: 1.3;
+  margin-bottom: 35px;
+  font-family: montserrat bold;
+  text-shadow: black 10px 5px 10px;
+}
+
+/* POPUP BUTTON */
+.popup-content button {
+  padding: 12px 50px;
+  border-radius: 30px;
+  border: 3px solid #ffb000;
+  background: white;
+  font-size: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.popup-content button:hover {
+  background: #ffb000;
+}
+
+/* INVALID INPUTS */
+input.error,
+textarea.error {
+  border: 2px solid red !important;
 }
 
 /*FOOTER */
@@ -1670,6 +1783,31 @@ h5 {
   width: 40px;
   margin-left: 0;
  }
+
+ .popup-content {
+    width: 85%;
+    padding: 40px 30px;
+  }
+
+  .popup-content h2 {
+    font-size: 36px;
+    line-height: 1.3;
+  }
+
+  .checkmark {
+    width: 85px;
+    height: 85px;
+    font-size: 50px;
+  }
+
+  .popup-content button {
+    font-size: 22px;
+    padding: 10px 40px;
+  }
+
+  .error-text {
+    font-size: 13px;
+  }
 }
 
 
@@ -1994,50 +2132,92 @@ h5 {
     display: none; /* remove vertical lines */
   }
 
-  /* SECTION WRAPPER */
   .contact {
     flex-direction: column;
     padding: 40px 20px;
     gap: 30px;
   }
 
-  /* LEFT SIDE */
-  .contact-info {
-    min-width: 100%;
+  .contact-info,
+  .form {
+    width: 100%;
+    max-width: 100%;
   }
 
   .contact-info h1 {
     font-size: 50px;
-    margin: 10px 0;
     text-align: center;
+    margin: 0 0 15px;
   }
 
   .contact-info p {
-    font-size: 18px;
-    margin: 10px 0 20px 0;
+    font-size: 16px;
+    margin: 0 0 25px;
     text-align: justify;
   }
 
-  /* ICON SIZE FIX */
+  .con-info-item {
+    gap: 10px;
+  }
+
   .con-info-item i {
     font-size: 35px;
+    width: 40px;
     margin-left: 0;
   }
 
   /* FORM */
   .form {
-    min-width: 97%;
-    max-width: 100%;
-    padding: 20px 10px;
+    padding: 20px;
+    border-radius: 20px;
   }
 
   .form h2 {
-    font-size: 26px;
+    font-size: 28px;
+  }
+
+  form input,
+  form textarea {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  form textarea {
+    height: 140px;
   }
 
   .form button {
-    width: 50%;
+    width: 70%;
     font-size: 18px;
+  }
+
+  /* ERROR MESSAGE */
+  .error-text {
+    font-size: 12px;
+  }
+
+  /* SUCCESS POPUP */
+  .popup-content {
+    width: 90%;
+    padding: 35px 20px;
+    border-radius: 25px;
+  }
+
+  .popup-content h2 {
+    font-size: 28px;
+    line-height: 1.4;
+  }
+
+  .checkmark {
+    width: 75px;
+    height: 75px;
+    font-size: 42px;
+    margin-bottom: 20px;
+  }
+
+  .popup-content button {
+    font-size: 18px;
+    padding: 10px 35px;
   }
 
  }
@@ -2222,17 +2402,17 @@ h5 {
   }
 
   .product-hero-content h1 {
-    font-size: 24px;
+    font-size: 26px;
     letter-spacing: 1px;
   }
 
   .product-hero-content p {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .search-bar {
-    width: 100%;
-    margin-left: 0;
+    width: 90%;
+    margin-left: 20px;
   }
 
   .item-label {
@@ -2249,13 +2429,14 @@ h5 {
 
   .popup-box {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 10;
+    bottom: 0;
+    left: 0px;
     transform: none;
-    width: 90%;
-    height: 60vh;
-    border-radius: 0;
-    padding: 20px;
+    width: 70%;
+    height: 25vh;
+    border-radius: 25px;
+    padding: 5px;
     overflow-y: auto;
   }
 
@@ -2270,7 +2451,7 @@ h5 {
   }
 
   .two-columns {
-    column-count: 1; /* stack instead of 2 columns */
+    column-count: 2; 
   }
 
   .content h2 {
@@ -2295,46 +2476,97 @@ h5 {
    padding: 6px 12px;
  }
 
- /* TEXT SMALLER */
+ .contact {
+    padding: 20px 30px;
+  }
+
+  /* TITLE */
   .contact-info h1 {
-   font-size: 28px;
-   line-height: 1.2;
- }
+    font-size: 34px;
+  }
 
   .contact-info p {
-   font-size: 14px;
- }
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+  }
 
- /* STACK ICONS */
+  /* CONTACT ITEMS */
   .con-info-item {
-   flex-direction: column;
-   align-items: center;
-   text-align: center;
-   gap: 8px;
-   margin: 15px 0;
- }
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
 
- .con-info-item i {
-   font-size: 30px;
-   width: 35px;
-   margin: 5px 0;
-}
- 
-/* FORM */
- .form {
-   padding: 5px;
-}
+  .con-info-item i {
+    font-size: 30px;
+    width: 35px;
+  }
 
- .form h2 {
-   font-size: 22px;
- }
+  /* FORM */
+  .form {
+    padding: 18px 0px;
+    min-width: 100%;
+  }
+
+  .form h2 {
+    font-size: 24px;
+  }
+
+  form label {
+    font-size: 14px;
+  }
 
   form input,
   form textarea {
-   font-size: 14px;
- }
+    font-size: 13px;
+    padding: 9px;
+  }
 
- .form button {
-   width: 100%;
- }
+  .input-group {
+    padding: 0 10px;
+  }
+
+  form textarea {
+    height: 120px;
+  }
+
+  .form button {
+    width: 60%;
+    font-size: 16px;
+  }
+
+  /* ERROR */
+  .error-text {
+    font-size: 11px;
+  }
+
+  /* POPUP */
+  .popup-content {
+    width: 92%;
+    padding: 10px 0;
+    border-radius: 20px;
+  }
+
+  .popup-content h2 {
+    font-size: 22px;
+    line-height: 1.5;
+    margin-top: 20px;
+    margin-bottom: 5px;
+  }
+
+  .checkmark {
+    width: 65px;
+    height: 65px;
+    font-size: 36px;
+    margin-top: 20px;
+  }
+
+  .popup-content button {
+    width: 50%;
+    font-size: 16px;
+    padding: 10px 20px;
+
+  }
   }

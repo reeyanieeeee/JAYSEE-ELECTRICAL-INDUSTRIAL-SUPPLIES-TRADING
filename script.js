@@ -173,57 +173,122 @@ window.addEventListener('scroll', function() {
 });
 
 /* CONTACT FORM */
-document.addEventListener("DOMContentLoaded", function () { 
-  const form = document.querySelector("form"); 
-  const nameInput = document.querySelectorAll("input")[0]; 
-  const emailInput = document.querySelectorAll("input")[1]; 
-  const messageInput = document.querySelector("textarea"); 
- 
-  emailjs.init("-ljApwiUqG8JQk21q"); 
-    nameInput.addEventListener("input", function () { 
-      this.value = this.value.replace(/[^a-zA-Z\s]/g, ""); 
-}); 
- 
-form.addEventListener("submit", function (e) { 
-  e.preventDefault(); 
- 
-    let name = nameInput.value.trim(); 
-    let email = emailInput.value.trim(); 
-    let message = messageInput.value.trim(); 
-      
-  if (name === "" || email === "" || message === "") { 
-    alert("Please fill in all fields."); 
-  
-    return; 
-} 
- 
-  if (/\d/.test(name)) { 
-    alert("Name cannot contain numbers."); 
-            
-    return; 
-} 
- 
-  let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/; 
-    if (!emailPattern.test(email)) { 
-      alert("Please enter a valid email."); 
-            
-    return; 
-} 
- 
-emailjs.send("service_dfupro9","template_tth604y", { 
-  from_name: name, 
-  from_email: email, 
-  message: message 
-}) 
+document.addEventListener("DOMContentLoaded", function () {
 
-.then(function () { 
-  alert("Message sent successfully!"); 
-  form.reset(); 
-}) 
+    const form = document.getElementById("contactForm");
 
-.catch(function (error) { 
-  alert("Failed to send message."); 
-  console.error(error); 
-}); 
-}); 
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const messageInput = document.getElementById("message");
+
+    const popup = document.getElementById("successPopup");
+    const closePopup = document.getElementById("closePopup");
+
+    const fields = [
+        {
+            input: nameInput,
+            error: nameInput.nextElementSibling
+        },
+        {
+            input: emailInput,
+            error: emailInput.nextElementSibling
+        },
+        {
+            input: messageInput,
+            error: messageInput.nextElementSibling
+        }
+    ];
+
+    emailjs.init("-ljApwiUqG8JQk21q");
+
+    /* NO NUMBERS IN NAME */
+    nameInput.addEventListener("input", function () {
+        this.value = this.value.replace(/[^a-zA-Z\s]/g, "");
+    });
+
+    /* REMOVE ERROR WHEN TYPING */
+    fields.forEach(field => {
+
+        field.input.addEventListener("input", () => {
+
+            if (field.input.value.trim() !== "") {
+                field.input.classList.remove("error");
+                field.error.classList.remove("show");
+            }
+
+        });
+
+    });
+
+    form.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        let valid = true;
+
+        /* RESET */
+        fields.forEach(field => {
+            field.input.classList.remove("error");
+            field.error.classList.remove("show");
+        });
+
+        /* EMPTY CHECK */
+        fields.forEach(field => {
+
+            if (field.input.value.trim() === "") {
+
+                field.input.classList.add("error");
+                field.error.classList.add("show");
+
+                valid = false;
+            }
+
+        });
+
+        if (!valid) return;
+
+        /* EMAIL FORMAT */
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+        if (!emailPattern.test(emailInput.value.trim())) {
+
+            emailInput.classList.add("error");
+            emailInput.nextElementSibling.textContent =
+                "Please enter a valid email address.";
+            emailInput.nextElementSibling.classList.add("show");
+
+            return;
+        }
+
+        /* SEND EMAIL */
+        emailjs.send("service_dfupro9", "template_tth604y", {
+            from_name: nameInput.value,
+            from_email: emailInput.value,
+            message: messageInput.value
+        })
+
+        .then(function () {
+
+            form.reset();
+
+            /* SHOW SUCCESS POPUP */
+            popup.classList.add("show");
+
+        })
+
+        .catch(function (error) {
+
+            console.error(error);
+
+        });
+
+    });
+
+    /* CLOSE POPUP */
+    closePopup.addEventListener("click", function () {
+
+        popup.classList.remove("show");
+
+    });
+
 });

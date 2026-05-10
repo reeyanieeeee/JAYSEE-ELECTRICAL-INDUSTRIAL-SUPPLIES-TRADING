@@ -13,7 +13,7 @@
   <!-- NAV BAR -->
 <div class="header">
   <div class="left">
-    <img src="logo.png" class="logo">
+    <a href="index.html"><img src="logo.png" class="logo"></a>
     <div class="company">
       JAYSEE ELECTRICAL & INDUSTRIAL SUPPLIES TRADING
     </div>
@@ -77,18 +77,49 @@
   <div class="form">
     <h2>Send a message</h2>
 
-    <form>
-      <label>Name<span class="asterisk">*</span></label>
-      <input type="text" placeholder="Full Name">
+    <form id="contactForm">
 
-      <label>Email<span class="asterisk">*</span></label>
-      <input type="email" placeholder="Email">
+  <!-- NAME -->
+  <div class="input-group">
+    <label>Name<span class="asterisk">*</span></label>
+    <input type="text" id="name" placeholder="Full Name">
+    <small class="error-text">Please enter your name.</small>
+  </div>
 
-      <label>Message<span class="asterisk">*</span></label>
-      <textarea placeholder="Write a message..." rows="10"></textarea>
+  <!-- EMAIL -->
+  <div class="input-group">
+    <label>Email<span class="asterisk">*</span></label>
+    <input type="email" id="email" placeholder="Email">
+    <small class="error-text">Please enter your email address.</small>
+  </div>
 
-      <button type="submit">SUBMIT</button>
-    </form>
+  <!-- MESSAGE -->
+  <div class="input-group">
+    <label>Message<span class="asterisk">*</span></label>
+    <textarea id="message" placeholder="Write a message..." rows="10"></textarea>
+    <small class="error-text">Please enter your message.</small>
+  </div>
+
+  <button type="submit">SUBMIT</button>
+
+</form>
+
+<!-- SUCCESS POPUP -->
+<div class="popup" id="successPopup">
+
+  <div class="popup-content">
+
+    <div class="checkmark">
+      ✓
+    </div>
+
+    <h2>Thank you! Your message<br>has been successfully sent.</h2>
+
+    <button id="closePopup">YAY!</button>
+
+  </div>
+
+</div>
   </div>
 
 </div>
