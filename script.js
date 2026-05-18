@@ -292,3 +292,28 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+// PAGE TRANSITION FADE IN ON LOAD
+window.addEventListener("load", () => {
+  const overlay = document.getElementById("page-transition");
+  overlay.classList.add("hide");
+});
+
+// FADE OUT BEFORE LEAVING PAGE
+document.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", function (e) {
+    const href = this.getAttribute("href");
+
+    // ignore external links or anchors
+    if (!href || href.startsWith("#") || href.startsWith("http")) return;
+
+    e.preventDefault();
+
+    const overlay = document.getElementById("page-transition");
+    overlay.classList.remove("hide");
+
+    setTimeout(() => {
+      window.location.href = href;
+    }, 500); // match CSS transition time
+  });
+});
